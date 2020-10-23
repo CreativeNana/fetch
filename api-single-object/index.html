@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jason API: Looping through an array of numbers</title>
+  <style>
+    main {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    blockquote {
+      max-width: 30ch;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- Quote goes here -->
+  </main>
+  <script>
+    // Execution phase begins after Creation Phase
+    // Javascript engine starts an Execution Stack for the following code.
+    console.log('Done executing. The execution stack is now empty.');
+    const main = document.querySelector('main');
+
+    fetch('https://open.exchangerate-api.com/v6/latest')
+
+      .then(function(response) {
+        console.log(response);
+        // json -> javascript object
+        return response.json();
+      })
+      .catch(function(err){
+          throw Error(err);
+      })
+      .then(function(data) {
+        console.log(data);
+
+        let outputHTML = [], h = -1;
+
+        const main = document.querySelector('main');  
+
+
+        for(key in data.rates) {
+            console.log(key);
+            outputHTML[++h] = `<li><p>${key}</p><p>${data.rates[key]}</p></li>`;
+       }
+
+
+/*
+        data.results.forEach(function(item){
+          // Step 4 code here
+          html[++h] = `<li><p>${item.url}</p><p>${item.name}</p></li>`;
+        });
+*/    
+        main.innerHTML = `<ul>${outputHTML.join('')}</ul>`;
+      });
+  
+    console.log('Done executing. The execution stack is now empty.');  
+  </script>
+</body>
+</html>
